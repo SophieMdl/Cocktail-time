@@ -3,6 +3,7 @@
   import CocktailsList from './CocktailsList.svelte';
   import CocktailDetail from './CocktailDetail.svelte';
   import Home from './Home.svelte';
+  import Favorites from './Favorites.svelte';
 
   export let url = '';
 </script>
@@ -14,5 +15,6 @@
       <CocktailDetail id={params.id} />
     </Route>
     <Route path="index" component={Home} />
+    <Route path="favorites" component={Favorites} />
   </Router>
 </div>

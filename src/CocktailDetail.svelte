@@ -67,11 +67,11 @@
     </div>
   </div>
   {#if $favorites.some((fav) => fav.idDrink === cocktail.idDrink)}
-    <button on:click={removeFromFavorites}>
+    <button on:click={favorites.remove(cocktail.idDrink)}>
       Retirer des favoris
     </button>
   {:else}
-    <button on:click={addToFavorites}>
+    <button on:click={favorites.add(cocktail)}>
       Ajouter aux favoris
     </button>
   {/if}

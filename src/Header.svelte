@@ -1,6 +1,7 @@
 <script>
   import { cocktails, searchText } from './stores.js';
   import { navigate, Link } from 'svelte-routing';
+  import { favorites } from './stores.js'
 
   const search = async (e) => {
     e.preventDefault();
@@ -16,9 +17,24 @@
   };
 </script>
 
-<Link to="/index">
-  <h1>Cocktail time !</h1>
-</Link>
+<style>
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+</style>
+
+<div class="header">
+  <Link to="/index">
+    <h1>Cocktail time !</h1>
+  </Link>
+    {#if $favorites.length > 0}
+    <Link to="/favorites">
+      My favorites({$favorites.length})
+    </Link>
+    {/if}
+  </div>
 <div>
   <label for="search">Chercher un cocktail</label>
   <input
