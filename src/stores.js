@@ -2,6 +2,7 @@ import { writable } from "svelte/store";
 
 export const cocktails = writable([]);
 export const searchText = writable("");
+export const ingredients = writable([])
 
 const createFavorites = () => {
 const { subscribe, update } = writable([]);

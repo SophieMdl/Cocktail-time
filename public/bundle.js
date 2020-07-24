@@ -1753,6 +1753,7 @@ var app = (function () {
 
     const cocktails = writable([]);
     const searchText = writable("");
+    const ingredients = writable([]);
 
     const createFavorites = () => {
     const { subscribe, update } = writable([]);
@@ -1793,7 +1794,7 @@ var app = (function () {
     	};
     }
 
-    // (32:4) {#if $favorites.length > 0}
+    // (18:2) {#if $favorites.length > 0}
     function create_if_block$1(ctx) {
     	let link;
     	let current;
@@ -1820,7 +1821,7 @@ var app = (function () {
     		p(ctx, dirty) {
     			const link_changes = {};
 
-    			if (dirty & /*$$scope, $favorites*/ 33) {
+    			if (dirty & /*$$scope, $favorites*/ 3) {
     				link_changes.$$scope = { dirty, ctx };
     			}
 
@@ -1841,7 +1842,7 @@ var app = (function () {
     	};
     }
 
-    // (33:4) <Link to="/favorites">
+    // (19:4) <Link to="/favorites">
     function create_default_slot(ctx) {
     	let t0;
     	let t1_value = /*$favorites*/ ctx[0].length + "";
@@ -1876,22 +1877,14 @@ var app = (function () {
     }
 
     function create_fragment$3(ctx) {
-    	let div0;
+    	let div;
     	let link;
-    	let t0;
-    	let t1;
-    	let div1;
-    	let label;
-    	let t2;
-    	let t3;
-    	let input;
+    	let t;
     	let current;
-    	let mounted;
-    	let dispose;
 
     	link = new Link({
     			props: {
-    				to: "/index",
+    				to: "/cocktails",
     				$$slots: { default: [create_default_slot_1] },
     				$$scope: { ctx }
     			}
@@ -1901,77 +1894,35 @@ var app = (function () {
 
     	return {
     		c() {
-    			div0 = element("div");
+    			div = element("div");
     			create_component(link.$$.fragment);
-    			t0 = space();
+    			t = space();
     			if (if_block) if_block.c();
-    			t1 = space();
-    			div1 = element("div");
-    			label = element("label");
-    			t2 = text("Chercher un cocktail");
-    			t3 = space();
-    			input = element("input");
     			this.h();
     		},
     		l(nodes) {
-    			div0 = claim_element(nodes, "DIV", { class: true });
-    			var div0_nodes = children(div0);
-    			claim_component(link.$$.fragment, div0_nodes);
-    			t0 = claim_space(div0_nodes);
-    			if (if_block) if_block.l(div0_nodes);
-    			div0_nodes.forEach(detach);
-    			t1 = claim_space(nodes);
-    			div1 = claim_element(nodes, "DIV", {});
-    			var div1_nodes = children(div1);
-    			label = claim_element(div1_nodes, "LABEL", { for: true });
-    			var label_nodes = children(label);
-    			t2 = claim_text(label_nodes, "Chercher un cocktail");
-    			label_nodes.forEach(detach);
-    			t3 = claim_space(div1_nodes);
-
-    			input = claim_element(div1_nodes, "INPUT", {
-    				placeholder: true,
-    				name: true,
-    				preventDefault: true
-    			});
-
-    			div1_nodes.forEach(detach);
+    			div = claim_element(nodes, "DIV", { class: true });
+    			var div_nodes = children(div);
+    			claim_component(link.$$.fragment, div_nodes);
+    			t = claim_space(div_nodes);
+    			if (if_block) if_block.l(div_nodes);
+    			div_nodes.forEach(detach);
     			this.h();
     		},
     		h() {
-    			attr(div0, "class", "header svelte-3ts8og");
-    			attr(label, "for", "search");
-    			attr(input, "placeholder", "Search");
-    			attr(input, "name", "search");
-    			attr(input, "preventdefault", "");
+    			attr(div, "class", "header svelte-3ts8og");
     		},
     		m(target, anchor) {
-    			insert(target, div0, anchor);
-    			mount_component(link, div0, null);
-    			append(div0, t0);
-    			if (if_block) if_block.m(div0, null);
-    			insert(target, t1, anchor);
-    			insert(target, div1, anchor);
-    			append(div1, label);
-    			append(label, t2);
-    			append(div1, t3);
-    			append(div1, input);
-    			set_input_value(input, /*$searchText*/ ctx[1]);
+    			insert(target, div, anchor);
+    			mount_component(link, div, null);
+    			append(div, t);
+    			if (if_block) if_block.m(div, null);
     			current = true;
-
-    			if (!mounted) {
-    				dispose = [
-    					listen(input, "input", /*input_input_handler*/ ctx[3]),
-    					listen(input, "keydown", /*keydown_handler*/ ctx[4])
-    				];
-
-    				mounted = true;
-    			}
     		},
     		p(ctx, [dirty]) {
     			const link_changes = {};
 
-    			if (dirty & /*$$scope*/ 32) {
+    			if (dirty & /*$$scope*/ 2) {
     				link_changes.$$scope = { dirty, ctx };
     			}
 
@@ -1988,7 +1939,7 @@ var app = (function () {
     					if_block = create_if_block$1(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
-    					if_block.m(div0, null);
+    					if_block.m(div, null);
     				}
     			} else if (if_block) {
     				group_outros();
@@ -1998,10 +1949,6 @@ var app = (function () {
     				});
 
     				check_outros();
-    			}
-
-    			if (dirty & /*$searchText*/ 2 && input.value !== /*$searchText*/ ctx[1]) {
-    				set_input_value(input, /*$searchText*/ ctx[1]);
     			}
     		},
     		i(local) {
@@ -2016,39 +1963,17 @@ var app = (function () {
     			current = false;
     		},
     		d(detaching) {
-    			if (detaching) detach(div0);
+    			if (detaching) detach(div);
     			destroy_component(link);
     			if (if_block) if_block.d();
-    			if (detaching) detach(t1);
-    			if (detaching) detach(div1);
-    			mounted = false;
-    			run_all(dispose);
     		}
     	};
     }
 
     function instance$3($$self, $$props, $$invalidate) {
     	let $favorites;
-    	let $searchText;
     	component_subscribe($$self, favorites, $$value => $$invalidate(0, $favorites = $$value));
-    	component_subscribe($$self, searchText, $$value => $$invalidate(1, $searchText = $$value));
-
-    	const search = async e => {
-    		e.preventDefault();
-    		const value = e.target.value;
-    		const res = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${value}`);
-    		const drinks = await res.json().then(res => res.drinks);
-    		cocktails.set(drinks);
-    		navigate("/cocktails");
-    	};
-
-    	function input_input_handler() {
-    		$searchText = this.value;
-    		searchText.set($searchText);
-    	}
-
-    	const keydown_handler = e => e.key === "Enter" && search(e);
-    	return [$favorites, $searchText, search, input_input_handler, keydown_handler];
+    	return [$favorites];
     }
 
     class Header extends SvelteComponent {
@@ -2397,14 +2322,414 @@ var app = (function () {
     	}
     }
 
-    /* src/CocktailsList.svelte generated by Svelte v3.24.0 */
+    /* src/Search.svelte generated by Svelte v3.24.0 */
+
+    function get_each_context$1(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[10] = list[i].strIngredient1;
+    	return child_ctx;
+    }
+
+    // (61:2) {:else}
+    function create_else_block$2(ctx) {
+    	let t;
+
+    	return {
+    		c() {
+    			t = text("Show ingredient filters");
+    		},
+    		l(nodes) {
+    			t = claim_text(nodes, "Show ingredient filters");
+    		},
+    		m(target, anchor) {
+    			insert(target, t, anchor);
+    		},
+    		d(detaching) {
+    			if (detaching) detach(t);
+    		}
+    	};
+    }
+
+    // (59:2) {#if showFilter}
+    function create_if_block_1$1(ctx) {
+    	let t;
+
+    	return {
+    		c() {
+    			t = text("Hide ingredient filter");
+    		},
+    		l(nodes) {
+    			t = claim_text(nodes, "Hide ingredient filter");
+    		},
+    		m(target, anchor) {
+    			insert(target, t, anchor);
+    		},
+    		d(detaching) {
+    			if (detaching) detach(t);
+    		}
+    	};
+    }
+
+    // (64:0) {#if showFilter}
+    function create_if_block$3(ctx) {
+    	let div;
+    	let label;
+    	let t0;
+    	let t1;
+    	let input;
+    	let t2;
+    	let datalist;
+    	let mounted;
+    	let dispose;
+    	let each_value = /*$ingredients*/ ctx[1];
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
+    	}
+
+    	return {
+    		c() {
+    			div = element("div");
+    			label = element("label");
+    			t0 = text("Filter by ingredient :");
+    			t1 = space();
+    			input = element("input");
+    			t2 = space();
+    			datalist = element("datalist");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			this.h();
+    		},
+    		l(nodes) {
+    			div = claim_element(nodes, "DIV", {});
+    			var div_nodes = children(div);
+    			label = claim_element(div_nodes, "LABEL", { for: true });
+    			var label_nodes = children(label);
+    			t0 = claim_text(label_nodes, "Filter by ingredient :");
+    			label_nodes.forEach(detach);
+    			t1 = claim_space(div_nodes);
+    			input = claim_element(div_nodes, "INPUT", { list: true, type: true, id: true });
+    			t2 = claim_space(div_nodes);
+    			datalist = claim_element(div_nodes, "DATALIST", { id: true });
+    			var datalist_nodes = children(datalist);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].l(datalist_nodes);
+    			}
+
+    			datalist_nodes.forEach(detach);
+    			div_nodes.forEach(detach);
+    			this.h();
+    		},
+    		h() {
+    			attr(label, "for", "choix_bieres");
+    			attr(input, "list", "ingredients");
+    			attr(input, "type", "text");
+    			attr(input, "id", "ingredients-choice");
+    			attr(datalist, "id", "ingredients");
+    		},
+    		m(target, anchor) {
+    			insert(target, div, anchor);
+    			append(div, label);
+    			append(label, t0);
+    			append(div, t1);
+    			append(div, input);
+    			append(div, t2);
+    			append(div, datalist);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(datalist, null);
+    			}
+
+    			if (!mounted) {
+    				dispose = listen(input, "change", /*change_handler*/ ctx[9]);
+    				mounted = true;
+    			}
+    		},
+    		p(ctx, dirty) {
+    			if (dirty & /*$ingredients*/ 2) {
+    				each_value = /*$ingredients*/ ctx[1];
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context$1(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block$1(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(datalist, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value.length;
+    			}
+    		},
+    		d(detaching) {
+    			if (detaching) detach(div);
+    			destroy_each(each_blocks, detaching);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+    }
+
+    // (73:6) {#each $ingredients as { strIngredient1 }}
+    function create_each_block$1(ctx) {
+    	let option;
+    	let option_value_value;
+
+    	return {
+    		c() {
+    			option = element("option");
+    			this.h();
+    		},
+    		l(nodes) {
+    			option = claim_element(nodes, "OPTION", { value: true });
+    			children(option).forEach(detach);
+    			this.h();
+    		},
+    		h() {
+    			option.__value = option_value_value = /*strIngredient1*/ ctx[10];
+    			option.value = option.__value;
+    		},
+    		m(target, anchor) {
+    			insert(target, option, anchor);
+    		},
+    		p(ctx, dirty) {
+    			if (dirty & /*$ingredients*/ 2 && option_value_value !== (option_value_value = /*strIngredient1*/ ctx[10])) {
+    				option.__value = option_value_value;
+    				option.value = option.__value;
+    			}
+    		},
+    		d(detaching) {
+    			if (detaching) detach(option);
+    		}
+    	};
+    }
 
     function create_fragment$5(ctx) {
+    	let div0;
+    	let label;
+    	let t0;
+    	let t1;
+    	let input;
+    	let t2;
+    	let div1;
+    	let t3;
+    	let if_block1_anchor;
+    	let mounted;
+    	let dispose;
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*showFilter*/ ctx[0]) return create_if_block_1$1;
+    		return create_else_block$2;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block0 = current_block_type(ctx);
+    	let if_block1 = /*showFilter*/ ctx[0] && create_if_block$3(ctx);
+
+    	return {
+    		c() {
+    			div0 = element("div");
+    			label = element("label");
+    			t0 = text("Chercher par nom");
+    			t1 = space();
+    			input = element("input");
+    			t2 = space();
+    			div1 = element("div");
+    			if_block0.c();
+    			t3 = text("\nOR\n");
+    			if (if_block1) if_block1.c();
+    			if_block1_anchor = empty();
+    			this.h();
+    		},
+    		l(nodes) {
+    			div0 = claim_element(nodes, "DIV", {});
+    			var div0_nodes = children(div0);
+    			label = claim_element(div0_nodes, "LABEL", { for: true });
+    			var label_nodes = children(label);
+    			t0 = claim_text(label_nodes, "Chercher par nom");
+    			label_nodes.forEach(detach);
+    			t1 = claim_space(div0_nodes);
+
+    			input = claim_element(div0_nodes, "INPUT", {
+    				placeholder: true,
+    				name: true,
+    				preventDefault: true
+    			});
+
+    			div0_nodes.forEach(detach);
+    			t2 = claim_space(nodes);
+    			div1 = claim_element(nodes, "DIV", { href: true });
+    			var div1_nodes = children(div1);
+    			if_block0.l(div1_nodes);
+    			div1_nodes.forEach(detach);
+    			t3 = claim_text(nodes, "\nOR\n");
+    			if (if_block1) if_block1.l(nodes);
+    			if_block1_anchor = empty();
+    			this.h();
+    		},
+    		h() {
+    			attr(label, "for", "search");
+    			attr(input, "placeholder", "Search");
+    			attr(input, "name", "search");
+    			attr(input, "preventdefault", "");
+    			attr(div1, "href", "#");
+    		},
+    		m(target, anchor) {
+    			insert(target, div0, anchor);
+    			append(div0, label);
+    			append(label, t0);
+    			append(div0, t1);
+    			append(div0, input);
+    			set_input_value(input, /*$searchText*/ ctx[2]);
+    			insert(target, t2, anchor);
+    			insert(target, div1, anchor);
+    			if_block0.m(div1, null);
+    			insert(target, t3, anchor);
+    			if (if_block1) if_block1.m(target, anchor);
+    			insert(target, if_block1_anchor, anchor);
+
+    			if (!mounted) {
+    				dispose = [
+    					listen(input, "input", /*input_input_handler*/ ctx[6]),
+    					listen(input, "keydown", /*keydown_handler*/ ctx[7]),
+    					listen(div1, "click", /*click_handler*/ ctx[8])
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p(ctx, [dirty]) {
+    			if (dirty & /*$searchText*/ 4 && input.value !== /*$searchText*/ ctx[2]) {
+    				set_input_value(input, /*$searchText*/ ctx[2]);
+    			}
+
+    			if (current_block_type !== (current_block_type = select_block_type(ctx))) {
+    				if_block0.d(1);
+    				if_block0 = current_block_type(ctx);
+
+    				if (if_block0) {
+    					if_block0.c();
+    					if_block0.m(div1, null);
+    				}
+    			}
+
+    			if (/*showFilter*/ ctx[0]) {
+    				if (if_block1) {
+    					if_block1.p(ctx, dirty);
+    				} else {
+    					if_block1 = create_if_block$3(ctx);
+    					if_block1.c();
+    					if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
+    				}
+    			} else if (if_block1) {
+    				if_block1.d(1);
+    				if_block1 = null;
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d(detaching) {
+    			if (detaching) detach(div0);
+    			if (detaching) detach(t2);
+    			if (detaching) detach(div1);
+    			if_block0.d();
+    			if (detaching) detach(t3);
+    			if (if_block1) if_block1.d(detaching);
+    			if (detaching) detach(if_block1_anchor);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+    }
+
+    function instance$5($$self, $$props, $$invalidate) {
+    	let $ingredients;
+    	let $searchText;
+    	component_subscribe($$self, ingredients, $$value => $$invalidate(1, $ingredients = $$value));
+    	component_subscribe($$self, searchText, $$value => $$invalidate(2, $searchText = $$value));
+    	let showFilter = false;
+
+    	onMount(async () => {
+    		if ($ingredients.length > 0) {
+    			return;
+    		}
+
+    		const res = await fetch("https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list").then(res => res.json());
+    		ingredients.set(res.drinks);
+    	});
+
+    	const submitFilter = async ingredient => {
+    		const res = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+    		const drinks = await res.json().then(res => res.drinks);
+    		cocktails.set(drinks);
+    		navigate("/cocktails");
+    	};
+
+    	const search = async e => {
+    		e.preventDefault();
+    		const value = e.target.value;
+    		const res = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${value}`);
+    		const drinks = await res.json().then(res => res.drinks);
+    		cocktails.set(drinks);
+    		navigate("/cocktails");
+    	};
+
+    	const toggleShowFilter = () => $$invalidate(0, showFilter = !showFilter);
+
+    	function input_input_handler() {
+    		$searchText = this.value;
+    		searchText.set($searchText);
+    	}
+
+    	const keydown_handler = e => e.key === "Enter" && search(e);
+    	const click_handler = () => toggleShowFilter();
+    	const change_handler = e => submitFilter(e.target.value);
+
+    	return [
+    		showFilter,
+    		$ingredients,
+    		$searchText,
+    		submitFilter,
+    		search,
+    		toggleShowFilter,
+    		input_input_handler,
+    		keydown_handler,
+    		click_handler,
+    		change_handler
+    	];
+    }
+
+    class Search extends SvelteComponent {
+    	constructor(options) {
+    		super();
+    		init(this, options, instance$5, create_fragment$5, safe_not_equal, {});
+    	}
+    }
+
+    /* src/CocktailsList.svelte generated by Svelte v3.24.0 */
+
+    function create_fragment$6(ctx) {
     	let header;
-    	let t;
+    	let t0;
+    	let search;
+    	let t1;
     	let cocktailsgrid;
     	let current;
     	header = new Header({});
+    	search = new Search({});
 
     	cocktailsgrid = new CocktailsGrid({
     			props: { cocktails: /*$cocktails*/ ctx[0] }
@@ -2413,17 +2738,23 @@ var app = (function () {
     	return {
     		c() {
     			create_component(header.$$.fragment);
-    			t = space();
+    			t0 = space();
+    			create_component(search.$$.fragment);
+    			t1 = space();
     			create_component(cocktailsgrid.$$.fragment);
     		},
     		l(nodes) {
     			claim_component(header.$$.fragment, nodes);
-    			t = claim_space(nodes);
+    			t0 = claim_space(nodes);
+    			claim_component(search.$$.fragment, nodes);
+    			t1 = claim_space(nodes);
     			claim_component(cocktailsgrid.$$.fragment, nodes);
     		},
     		m(target, anchor) {
     			mount_component(header, target, anchor);
-    			insert(target, t, anchor);
+    			insert(target, t0, anchor);
+    			mount_component(search, target, anchor);
+    			insert(target, t1, anchor);
     			mount_component(cocktailsgrid, target, anchor);
     			current = true;
     		},
@@ -2435,23 +2766,27 @@ var app = (function () {
     		i(local) {
     			if (current) return;
     			transition_in(header.$$.fragment, local);
+    			transition_in(search.$$.fragment, local);
     			transition_in(cocktailsgrid.$$.fragment, local);
     			current = true;
     		},
     		o(local) {
     			transition_out(header.$$.fragment, local);
+    			transition_out(search.$$.fragment, local);
     			transition_out(cocktailsgrid.$$.fragment, local);
     			current = false;
     		},
     		d(detaching) {
     			destroy_component(header, detaching);
-    			if (detaching) detach(t);
+    			if (detaching) detach(t0);
+    			destroy_component(search, detaching);
+    			if (detaching) detach(t1);
     			destroy_component(cocktailsgrid, detaching);
     		}
     	};
     }
 
-    function instance$5($$self, $$props, $$invalidate) {
+    function instance$6($$self, $$props, $$invalidate) {
     	let $cocktails;
     	component_subscribe($$self, cocktails, $$value => $$invalidate(0, $cocktails = $$value));
     	return [$cocktails];
@@ -2460,39 +2795,19 @@ var app = (function () {
     class CocktailsList extends SvelteComponent {
     	constructor(options) {
     		super();
-    		init(this, options, instance$5, create_fragment$5, safe_not_equal, {});
+    		init(this, options, instance$6, create_fragment$6, safe_not_equal, {});
     	}
     }
 
     /* src/CocktailDetail.svelte generated by Svelte v3.24.0 */
 
-    function get_each_context$1(ctx, list, i) {
+    function get_each_context$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[8] = list[i];
+    	child_ctx[6] = list[i];
     	return child_ctx;
     }
 
-    // (49:0) <Link to="/cocktails">
-    function create_default_slot$2(ctx) {
-    	let t;
-
-    	return {
-    		c() {
-    			t = text("Retour");
-    		},
-    		l(nodes) {
-    			t = claim_text(nodes, "Retour");
-    		},
-    		m(target, anchor) {
-    			insert(target, t, anchor);
-    		},
-    		d(detaching) {
-    			if (detaching) detach(t);
-    		}
-    	};
-    }
-
-    // (80:0) {:else}
+    // (75:0) {:else}
     function create_else_block_1(ctx) {
     	let p;
     	let t;
@@ -2519,8 +2834,8 @@ var app = (function () {
     	};
     }
 
-    // (51:0) {#if cocktail}
-    function create_if_block$3(ctx) {
+    // (46:0) {#if cocktail}
+    function create_if_block$4(ctx) {
     	let h1;
     	let t0_value = /*cocktail*/ ctx[0].strDrink + "";
     	let t0;
@@ -2532,29 +2847,30 @@ var app = (function () {
     	let img_alt_value;
     	let t2;
     	let div1;
-    	let h40;
+    	let span0;
     	let t3;
     	let t4;
+    	let ul;
     	let t5;
     	let show_if;
     	let t6;
-    	let h41;
+    	let h4;
     	let t7;
     	let t8;
-    	let span;
+    	let span1;
     	let t9_value = /*cocktail*/ ctx[0].strInstructions + "";
     	let t9;
     	let each_value = /*ingredients*/ ctx[1];
     	let each_blocks = [];
 
     	for (let i = 0; i < each_value.length; i += 1) {
-    		each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
+    		each_blocks[i] = create_each_block$2(get_each_context$2(ctx, each_value, i));
     	}
 
     	function select_block_type_1(ctx, dirty) {
     		if (show_if == null || dirty & /*$favorites, cocktail*/ 5) show_if = !!/*$favorites*/ ctx[2].some(/*func*/ ctx[4]);
-    		if (show_if) return create_if_block_1$1;
-    		return create_else_block$2;
+    		if (show_if) return create_if_block_1$2;
+    		return create_else_block$3;
     	}
 
     	let current_block_type = select_block_type_1(ctx, -1);
@@ -2570,9 +2886,10 @@ var app = (function () {
     			img = element("img");
     			t2 = space();
     			div1 = element("div");
-    			h40 = element("h4");
+    			span0 = element("span");
     			t3 = text("Ingredients");
     			t4 = space();
+    			ul = element("ul");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
@@ -2581,10 +2898,10 @@ var app = (function () {
     			t5 = space();
     			if_block.c();
     			t6 = space();
-    			h41 = element("h4");
+    			h4 = element("h4");
     			t7 = text("Instructions");
     			t8 = space();
-    			span = element("span");
+    			span1 = element("span");
     			t9 = text(t9_value);
     			this.h();
     		},
@@ -2603,38 +2920,42 @@ var app = (function () {
     			t2 = claim_space(div2_nodes);
     			div1 = claim_element(div2_nodes, "DIV", {});
     			var div1_nodes = children(div1);
-    			h40 = claim_element(div1_nodes, "H4", {});
-    			var h40_nodes = children(h40);
-    			t3 = claim_text(h40_nodes, "Ingredients");
-    			h40_nodes.forEach(detach);
+    			span0 = claim_element(div1_nodes, "SPAN", { class: true });
+    			var span0_nodes = children(span0);
+    			t3 = claim_text(span0_nodes, "Ingredients");
+    			span0_nodes.forEach(detach);
     			t4 = claim_space(div1_nodes);
+    			ul = claim_element(div1_nodes, "UL", {});
+    			var ul_nodes = children(ul);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].l(div1_nodes);
+    				each_blocks[i].l(ul_nodes);
     			}
 
+    			ul_nodes.forEach(detach);
     			div1_nodes.forEach(detach);
     			div2_nodes.forEach(detach);
     			t5 = claim_space(nodes);
     			if_block.l(nodes);
     			t6 = claim_space(nodes);
-    			h41 = claim_element(nodes, "H4", {});
-    			var h41_nodes = children(h41);
-    			t7 = claim_text(h41_nodes, "Instructions");
-    			h41_nodes.forEach(detach);
+    			h4 = claim_element(nodes, "H4", {});
+    			var h4_nodes = children(h4);
+    			t7 = claim_text(h4_nodes, "Instructions");
+    			h4_nodes.forEach(detach);
     			t8 = claim_space(nodes);
-    			span = claim_element(nodes, "SPAN", {});
-    			var span_nodes = children(span);
-    			t9 = claim_text(span_nodes, t9_value);
-    			span_nodes.forEach(detach);
+    			span1 = claim_element(nodes, "SPAN", {});
+    			var span1_nodes = children(span1);
+    			t9 = claim_text(span1_nodes, t9_value);
+    			span1_nodes.forEach(detach);
     			this.h();
     		},
     		h() {
     			attr(img, "width", "100%");
     			if (img.src !== (img_src_value = `${/*cocktail*/ ctx[0].strDrinkThumb}`)) attr(img, "src", img_src_value);
     			attr(img, "alt", img_alt_value = /*cocktail*/ ctx[0].strDrink);
-    			attr(div0, "class", "cocktail-img svelte-f2r02a");
-    			attr(div2, "class", "cocktail svelte-f2r02a");
+    			attr(div0, "class", "cocktail-img svelte-17rhe9");
+    			attr(span0, "class", "bold svelte-17rhe9");
+    			attr(div2, "class", "cocktail svelte-17rhe9");
     		},
     		m(target, anchor) {
     			insert(target, h1, anchor);
@@ -2645,22 +2966,23 @@ var app = (function () {
     			append(div0, img);
     			append(div2, t2);
     			append(div2, div1);
-    			append(div1, h40);
-    			append(h40, t3);
+    			append(div1, span0);
+    			append(span0, t3);
     			append(div1, t4);
+    			append(div1, ul);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(div1, null);
+    				each_blocks[i].m(ul, null);
     			}
 
     			insert(target, t5, anchor);
     			if_block.m(target, anchor);
     			insert(target, t6, anchor);
-    			insert(target, h41, anchor);
-    			append(h41, t7);
+    			insert(target, h4, anchor);
+    			append(h4, t7);
     			insert(target, t8, anchor);
-    			insert(target, span, anchor);
-    			append(span, t9);
+    			insert(target, span1, anchor);
+    			append(span1, t9);
     		},
     		p(ctx, dirty) {
     			if (dirty & /*cocktail*/ 1 && t0_value !== (t0_value = /*cocktail*/ ctx[0].strDrink + "")) set_data(t0, t0_value);
@@ -2678,14 +3000,14 @@ var app = (function () {
     				let i;
 
     				for (i = 0; i < each_value.length; i += 1) {
-    					const child_ctx = get_each_context$1(ctx, each_value, i);
+    					const child_ctx = get_each_context$2(ctx, each_value, i);
 
     					if (each_blocks[i]) {
     						each_blocks[i].p(child_ctx, dirty);
     					} else {
-    						each_blocks[i] = create_each_block$1(child_ctx);
+    						each_blocks[i] = create_each_block$2(child_ctx);
     						each_blocks[i].c();
-    						each_blocks[i].m(div1, null);
+    						each_blocks[i].m(ul, null);
     					}
     				}
 
@@ -2718,55 +3040,45 @@ var app = (function () {
     			if (detaching) detach(t5);
     			if_block.d(detaching);
     			if (detaching) detach(t6);
-    			if (detaching) detach(h41);
+    			if (detaching) detach(h4);
     			if (detaching) detach(t8);
-    			if (detaching) detach(span);
+    			if (detaching) detach(span1);
     		}
     	};
     }
 
-    // (62:6) {#each ingredients as ingredient}
-    function create_each_block$1(ctx) {
-    	let ul;
+    // (58:8) {#each ingredients as ingredient}
+    function create_each_block$2(ctx) {
     	let li;
-    	let t0_value = /*ingredient*/ ctx[8] + "";
-    	let t0;
-    	let t1;
+    	let t_value = /*ingredient*/ ctx[6] + "";
+    	let t;
 
     	return {
     		c() {
-    			ul = element("ul");
     			li = element("li");
-    			t0 = text(t0_value);
-    			t1 = space();
+    			t = text(t_value);
     		},
     		l(nodes) {
-    			ul = claim_element(nodes, "UL", {});
-    			var ul_nodes = children(ul);
-    			li = claim_element(ul_nodes, "LI", {});
+    			li = claim_element(nodes, "LI", {});
     			var li_nodes = children(li);
-    			t0 = claim_text(li_nodes, t0_value);
+    			t = claim_text(li_nodes, t_value);
     			li_nodes.forEach(detach);
-    			t1 = claim_space(ul_nodes);
-    			ul_nodes.forEach(detach);
     		},
     		m(target, anchor) {
-    			insert(target, ul, anchor);
-    			append(ul, li);
-    			append(li, t0);
-    			append(ul, t1);
+    			insert(target, li, anchor);
+    			append(li, t);
     		},
     		p(ctx, dirty) {
-    			if (dirty & /*ingredients*/ 2 && t0_value !== (t0_value = /*ingredient*/ ctx[8] + "")) set_data(t0, t0_value);
+    			if (dirty & /*ingredients*/ 2 && t_value !== (t_value = /*ingredient*/ ctx[6] + "")) set_data(t, t_value);
     		},
     		d(detaching) {
-    			if (detaching) detach(ul);
+    			if (detaching) detach(li);
     		}
     	};
     }
 
-    // (73:2) {:else}
-    function create_else_block$2(ctx) {
+    // (68:2) {:else}
+    function create_else_block$3(ctx) {
     	let button;
     	let t;
     	let mounted;
@@ -2806,8 +3118,8 @@ var app = (function () {
     	};
     }
 
-    // (69:2) {#if $favorites.some((fav) => fav.idDrink === cocktail.idDrink)}
-    function create_if_block_1$1(ctx) {
+    // (64:2) {#if $favorites.some((fav) => fav.idDrink === cocktail.idDrink)}
+    function create_if_block_1$2(ctx) {
     	let button;
     	let t;
     	let mounted;
@@ -2847,26 +3159,15 @@ var app = (function () {
     	};
     }
 
-    function create_fragment$6(ctx) {
-    	let link;
-    	let t0;
+    function create_fragment$7(ctx) {
     	let header;
-    	let t1;
+    	let t;
     	let if_block_anchor;
     	let current;
-
-    	link = new Link({
-    			props: {
-    				to: "/cocktails",
-    				$$slots: { default: [create_default_slot$2] },
-    				$$scope: { ctx }
-    			}
-    		});
-
     	header = new Header({});
 
     	function select_block_type(ctx, dirty) {
-    		if (/*cocktail*/ ctx[0]) return create_if_block$3;
+    		if (/*cocktail*/ ctx[0]) return create_if_block$4;
     		return create_else_block_1;
     	}
 
@@ -2875,39 +3176,25 @@ var app = (function () {
 
     	return {
     		c() {
-    			create_component(link.$$.fragment);
-    			t0 = space();
     			create_component(header.$$.fragment);
-    			t1 = space();
+    			t = space();
     			if_block.c();
     			if_block_anchor = empty();
     		},
     		l(nodes) {
-    			claim_component(link.$$.fragment, nodes);
-    			t0 = claim_space(nodes);
     			claim_component(header.$$.fragment, nodes);
-    			t1 = claim_space(nodes);
+    			t = claim_space(nodes);
     			if_block.l(nodes);
     			if_block_anchor = empty();
     		},
     		m(target, anchor) {
-    			mount_component(link, target, anchor);
-    			insert(target, t0, anchor);
     			mount_component(header, target, anchor);
-    			insert(target, t1, anchor);
+    			insert(target, t, anchor);
     			if_block.m(target, anchor);
     			insert(target, if_block_anchor, anchor);
     			current = true;
     		},
     		p(ctx, [dirty]) {
-    			const link_changes = {};
-
-    			if (dirty & /*$$scope*/ 2048) {
-    				link_changes.$$scope = { dirty, ctx };
-    			}
-
-    			link.$set(link_changes);
-
     			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
     				if_block.p(ctx, dirty);
     			} else {
@@ -2922,49 +3209,45 @@ var app = (function () {
     		},
     		i(local) {
     			if (current) return;
-    			transition_in(link.$$.fragment, local);
     			transition_in(header.$$.fragment, local);
     			current = true;
     		},
     		o(local) {
-    			transition_out(link.$$.fragment, local);
     			transition_out(header.$$.fragment, local);
     			current = false;
     		},
     		d(detaching) {
-    			destroy_component(link, detaching);
-    			if (detaching) detach(t0);
     			destroy_component(header, detaching);
-    			if (detaching) detach(t1);
+    			if (detaching) detach(t);
     			if_block.d(detaching);
     			if (detaching) detach(if_block_anchor);
     		}
     	};
     }
 
-    function instance$6($$self, $$props, $$invalidate) {
+    function instance$7($$self, $$props, $$invalidate) {
     	let $favorites;
     	component_subscribe($$self, favorites, $$value => $$invalidate(2, $favorites = $$value));
     	let { id } = $$props;
     	let cocktail;
     	let ingredients = [];
 
-    	const fetchCocktail = async () => {
+    	const fetchCocktails = async () => {
     		const res = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
     		return await res.json().then(res => res.drinks[0]);
     	};
 
     	onMount(async () => {
-    		$$invalidate(0, cocktail = await fetchCocktail());
+    		$$invalidate(0, cocktail = await fetchCocktails());
 
     		for (const [key, value] of Object.entries(cocktail)) {
     			if (key.includes("strIngredient") && value) {
     				$$invalidate(1, ingredients = [...ingredients, value]);
     			}
     		}
-    	});
 
-    	console.log($favorites);
+    		$$invalidate(1, ingredients = ingredients.map((ingredient, i) => `${ingredient} : ${cocktail[`strMeasure${i + 1}`]}`));
+    	});
 
     	const func = fav => fav.idDrink === cocktail.idDrink;
 
@@ -2978,133 +3261,48 @@ var app = (function () {
     class CocktailDetail extends SvelteComponent {
     	constructor(options) {
     		super();
-    		init(this, options, instance$6, create_fragment$6, safe_not_equal, { id: 3 });
+    		init(this, options, instance$7, create_fragment$7, safe_not_equal, { id: 3 });
     	}
     }
 
     /* src/Home.svelte generated by Svelte v3.24.0 */
 
-    function create_if_block$4(ctx) {
-    	let cocktailsgrid;
-    	let current;
-
-    	cocktailsgrid = new CocktailsGrid({
-    			props: { cocktails: /*$favorites*/ ctx[0] }
-    		});
-
-    	return {
-    		c() {
-    			create_component(cocktailsgrid.$$.fragment);
-    		},
-    		l(nodes) {
-    			claim_component(cocktailsgrid.$$.fragment, nodes);
-    		},
-    		m(target, anchor) {
-    			mount_component(cocktailsgrid, target, anchor);
-    			current = true;
-    		},
-    		p(ctx, dirty) {
-    			const cocktailsgrid_changes = {};
-    			if (dirty & /*$favorites*/ 1) cocktailsgrid_changes.cocktails = /*$favorites*/ ctx[0];
-    			cocktailsgrid.$set(cocktailsgrid_changes);
-    		},
-    		i(local) {
-    			if (current) return;
-    			transition_in(cocktailsgrid.$$.fragment, local);
-    			current = true;
-    		},
-    		o(local) {
-    			transition_out(cocktailsgrid.$$.fragment, local);
-    			current = false;
-    		},
-    		d(detaching) {
-    			destroy_component(cocktailsgrid, detaching);
-    		}
-    	};
-    }
-
-    function create_fragment$7(ctx) {
+    function create_fragment$8(ctx) {
     	let header;
-    	let t;
-    	let if_block_anchor;
     	let current;
     	header = new Header({});
-    	let if_block = /*$favorites*/ ctx[0].length > 0 && create_if_block$4(ctx);
 
     	return {
     		c() {
     			create_component(header.$$.fragment);
-    			t = space();
-    			if (if_block) if_block.c();
-    			if_block_anchor = empty();
     		},
     		l(nodes) {
     			claim_component(header.$$.fragment, nodes);
-    			t = claim_space(nodes);
-    			if (if_block) if_block.l(nodes);
-    			if_block_anchor = empty();
     		},
     		m(target, anchor) {
     			mount_component(header, target, anchor);
-    			insert(target, t, anchor);
-    			if (if_block) if_block.m(target, anchor);
-    			insert(target, if_block_anchor, anchor);
     			current = true;
     		},
-    		p(ctx, [dirty]) {
-    			if (/*$favorites*/ ctx[0].length > 0) {
-    				if (if_block) {
-    					if_block.p(ctx, dirty);
-
-    					if (dirty & /*$favorites*/ 1) {
-    						transition_in(if_block, 1);
-    					}
-    				} else {
-    					if_block = create_if_block$4(ctx);
-    					if_block.c();
-    					transition_in(if_block, 1);
-    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
-    				}
-    			} else if (if_block) {
-    				group_outros();
-
-    				transition_out(if_block, 1, 1, () => {
-    					if_block = null;
-    				});
-
-    				check_outros();
-    			}
-    		},
+    		p: noop,
     		i(local) {
     			if (current) return;
     			transition_in(header.$$.fragment, local);
-    			transition_in(if_block);
     			current = true;
     		},
     		o(local) {
     			transition_out(header.$$.fragment, local);
-    			transition_out(if_block);
     			current = false;
     		},
     		d(detaching) {
     			destroy_component(header, detaching);
-    			if (detaching) detach(t);
-    			if (if_block) if_block.d(detaching);
-    			if (detaching) detach(if_block_anchor);
     		}
     	};
-    }
-
-    function instance$7($$self, $$props, $$invalidate) {
-    	let $favorites;
-    	component_subscribe($$self, favorites, $$value => $$invalidate(0, $favorites = $$value));
-    	return [$favorites];
     }
 
     class Home extends SvelteComponent {
     	constructor(options) {
     		super();
-    		init(this, options, instance$7, create_fragment$7, safe_not_equal, {});
+    		init(this, options, null, create_fragment$8, safe_not_equal, {});
     	}
     }
 
@@ -3149,7 +3347,7 @@ var app = (function () {
     	};
     }
 
-    function create_fragment$8(ctx) {
+    function create_fragment$9(ctx) {
     	let header;
     	let t;
     	let if_block_anchor;
@@ -3230,7 +3428,7 @@ var app = (function () {
     class Favorites extends SvelteComponent {
     	constructor(options) {
     		super();
-    		init(this, options, instance$8, create_fragment$8, safe_not_equal, {});
+    		init(this, options, instance$8, create_fragment$9, safe_not_equal, {});
     	}
     }
 
@@ -3273,7 +3471,7 @@ var app = (function () {
     }
 
     // (12:2) <Router {url}>
-    function create_default_slot$3(ctx) {
+    function create_default_slot$2(ctx) {
     	let route0;
     	let t0;
     	let route1;
@@ -3377,7 +3575,7 @@ var app = (function () {
     	};
     }
 
-    function create_fragment$9(ctx) {
+    function create_fragment$a(ctx) {
     	let div;
     	let router;
     	let current;
@@ -3385,7 +3583,7 @@ var app = (function () {
     	router = new Router({
     			props: {
     				url: /*url*/ ctx[0],
-    				$$slots: { default: [create_default_slot$3] },
+    				$$slots: { default: [create_default_slot$2] },
     				$$scope: { ctx }
     			}
     		});
@@ -3450,7 +3648,7 @@ var app = (function () {
     class App extends SvelteComponent {
     	constructor(options) {
     		super();
-    		init(this, options, instance$9, create_fragment$9, safe_not_equal, { url: 0 });
+    		init(this, options, instance$9, create_fragment$a, safe_not_equal, { url: 0 });
     	}
     }
 

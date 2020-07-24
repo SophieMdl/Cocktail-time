@@ -8,7 +8,7 @@
   let cocktail;
   let ingredients = [];
 
-  const fetchCocktail = async () => {
+  const fetchCocktails = async () => {
     const res = await fetch(
       `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
     );
@@ -16,24 +16,17 @@
   };
 
   onMount(async () => {
-    cocktail = await fetchCocktail();
+    cocktail = await fetchCocktails();
     for (const [key, value] of Object.entries(cocktail)) {
       if (key.includes('strIngredient') && value) {
         ingredients = [...ingredients, value];
       }
     }
-  });
-  console.log($favorites);
-
-  const addToFavorites = () => {
-    favorites.update((fav) => [...fav, cocktail]);
-  };
-
-  const removeFromFavorites = () => {
-    favorites.update((fav) =>
-      fav.filter((f) => f.idDrink !== cocktail.idDrink)
+    ingredients = ingredients.map(
+      (ingredient, i) =>
+        `${ingredient} : ${cocktail[`strMeasure${i + 1}`]}`
     );
-  };
+  });
 </script>
 
 <style>
@@ -44,9 +37,11 @@
     flex-basis: 40%;
     margin-right: 12px;
   }
+  .bold {
+    font-weight: bold;
+  }
 </style>
 
-<Link to="/cocktails">Retour</Link>
 <Header />
 {#if cocktail}
   <h1>{cocktail.strDrink}</h1>
@@ -58,12 +53,12 @@
         alt={cocktail.strDrink} />
     </div>
     <div>
-      <h4>Ingredients</h4>
-      {#each ingredients as ingredient}
-        <ul>
+      <span class="bold">Ingredients</span>
+      <ul>
+        {#each ingredients as ingredient}
           <li>{ingredient}</li>
-        </ul>
-      {/each}
+        {/each}
+      </ul>
     </div>
   </div>
   {#if $favorites.some((fav) => fav.idDrink === cocktail.idDrink)}
