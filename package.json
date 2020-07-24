@@ -18,5 +18,9 @@
     "build": "rollup -c",
     "watch": "rollup -c -w",
     "server": "nodemon server.js --watch server.js --watch public/App.js"
+  },
+  "devDependencies": {
+    "prettier": "^2.0.5",
+    "prettier-plugin-svelte": "^1.1.0"
   }
 }
