@@ -51,6 +51,15 @@
         width="100%"
         src={`${cocktail.strDrinkThumb}`}
         alt={cocktail.strDrink} />
+      {#if $favorites.some((fav) => fav.idDrink === cocktail.idDrink)}
+        <button on:click={favorites.remove(cocktail.idDrink)}>
+          Remove from favorites
+        </button>
+      {:else}
+        <button on:click={favorites.add(cocktail)}>
+          Add to favorites
+        </button>
+      {/if}
     </div>
     <div>
       <span class="bold">Ingredients</span>
@@ -61,15 +70,6 @@
       </ul>
     </div>
   </div>
-  {#if $favorites.some((fav) => fav.idDrink === cocktail.idDrink)}
-    <button on:click={favorites.remove(cocktail.idDrink)}>
-      Retirer des favoris
-    </button>
-  {:else}
-    <button on:click={favorites.add(cocktail)}>
-      Ajouter aux favoris
-    </button>
-  {/if}
   <h4>Instructions</h4>
   <span>{cocktail.strInstructions}</span>
 {:else}

@@ -1059,7 +1059,7 @@ ${validate_component(CocktailsGrid, "CocktailsGrid").$$render($$result, { cockta
 
 const css$2 = {
 	code: ".cocktail.svelte-17rhe9{display:flex}.cocktail-img.svelte-17rhe9{flex-basis:40%;margin-right:12px}.bold.svelte-17rhe9{font-weight:bold}",
-	map: "{\"version\":3,\"file\":\"CocktailDetail.svelte\",\"sources\":[\"CocktailDetail.svelte\"],\"sourcesContent\":[\"<script>\\n  import { Link } from 'svelte-routing';\\n  import { onMount } from 'svelte';\\n  import Header from './Header.svelte';\\n  import { cocktails, favorites } from './stores.js';\\n\\n  export let id;\\n  let cocktail;\\n  let ingredients = [];\\n\\n  const fetchCocktails = async () => {\\n    const res = await fetch(\\n      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`\\n    );\\n    return await res.json().then((res) => res.drinks[0]);\\n  };\\n\\n  onMount(async () => {\\n    cocktail = await fetchCocktails();\\n    for (const [key, value] of Object.entries(cocktail)) {\\n      if (key.includes('strIngredient') && value) {\\n        ingredients = [...ingredients, value];\\n      }\\n    }\\n    ingredients = ingredients.map(\\n      (ingredient, i) =>\\n        `${ingredient} : ${cocktail[`strMeasure${i + 1}`]}`\\n    );\\n  });\\n</script>\\n\\n<style>\\n  .cocktail {\\n    display: flex;\\n  }\\n  .cocktail-img {\\n    flex-basis: 40%;\\n    margin-right: 12px;\\n  }\\n  .bold {\\n    font-weight: bold;\\n  }\\n</style>\\n\\n<Header />\\n{#if cocktail}\\n  <h1>{cocktail.strDrink}</h1>\\n  <div class=\\\"cocktail\\\">\\n    <div class=\\\"cocktail-img\\\">\\n      <img\\n        width=\\\"100%\\\"\\n        src={`${cocktail.strDrinkThumb}`}\\n        alt={cocktail.strDrink} />\\n    </div>\\n    <div>\\n      <span class=\\\"bold\\\">Ingredients</span>\\n      <ul>\\n        {#each ingredients as ingredient}\\n          <li>{ingredient}</li>\\n        {/each}\\n      </ul>\\n    </div>\\n  </div>\\n  {#if $favorites.some((fav) => fav.idDrink === cocktail.idDrink)}\\n    <button on:click={favorites.remove(cocktail.idDrink)}>\\n      Retirer des favoris\\n    </button>\\n  {:else}\\n    <button on:click={favorites.add(cocktail)}>\\n      Ajouter aux favoris\\n    </button>\\n  {/if}\\n  <h4>Instructions</h4>\\n  <span>{cocktail.strInstructions}</span>\\n{:else}\\n  <p>...waiting</p>\\n{/if}\\n\"],\"names\":[],\"mappings\":\"AAgCE,SAAS,cAAC,CAAC,AACT,OAAO,CAAE,IAAI,AACf,CAAC,AACD,aAAa,cAAC,CAAC,AACb,UAAU,CAAE,GAAG,CACf,YAAY,CAAE,IAAI,AACpB,CAAC,AACD,KAAK,cAAC,CAAC,AACL,WAAW,CAAE,IAAI,AACnB,CAAC\"}"
+	map: "{\"version\":3,\"file\":\"CocktailDetail.svelte\",\"sources\":[\"CocktailDetail.svelte\"],\"sourcesContent\":[\"<script>\\n  import { Link } from 'svelte-routing';\\n  import { onMount } from 'svelte';\\n  import Header from './Header.svelte';\\n  import { cocktails, favorites } from './stores.js';\\n\\n  export let id;\\n  let cocktail;\\n  let ingredients = [];\\n\\n  const fetchCocktails = async () => {\\n    const res = await fetch(\\n      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`\\n    );\\n    return await res.json().then((res) => res.drinks[0]);\\n  };\\n\\n  onMount(async () => {\\n    cocktail = await fetchCocktails();\\n    for (const [key, value] of Object.entries(cocktail)) {\\n      if (key.includes('strIngredient') && value) {\\n        ingredients = [...ingredients, value];\\n      }\\n    }\\n    ingredients = ingredients.map(\\n      (ingredient, i) =>\\n        `${ingredient} : ${cocktail[`strMeasure${i + 1}`]}`\\n    );\\n  });\\n</script>\\n\\n<style>\\n  .cocktail {\\n    display: flex;\\n  }\\n  .cocktail-img {\\n    flex-basis: 40%;\\n    margin-right: 12px;\\n  }\\n  .bold {\\n    font-weight: bold;\\n  }\\n</style>\\n\\n<Header />\\n{#if cocktail}\\n  <h1>{cocktail.strDrink}</h1>\\n  <div class=\\\"cocktail\\\">\\n    <div class=\\\"cocktail-img\\\">\\n      <img\\n        width=\\\"100%\\\"\\n        src={`${cocktail.strDrinkThumb}`}\\n        alt={cocktail.strDrink} />\\n      {#if $favorites.some((fav) => fav.idDrink === cocktail.idDrink)}\\n        <button on:click={favorites.remove(cocktail.idDrink)}>\\n          Remove from favorites\\n        </button>\\n      {:else}\\n        <button on:click={favorites.add(cocktail)}>\\n          Add to favorites\\n        </button>\\n      {/if}\\n    </div>\\n    <div>\\n      <span class=\\\"bold\\\">Ingredients</span>\\n      <ul>\\n        {#each ingredients as ingredient}\\n          <li>{ingredient}</li>\\n        {/each}\\n      </ul>\\n    </div>\\n  </div>\\n  <h4>Instructions</h4>\\n  <span>{cocktail.strInstructions}</span>\\n{:else}\\n  <p>...waiting</p>\\n{/if}\\n\"],\"names\":[],\"mappings\":\"AAgCE,SAAS,cAAC,CAAC,AACT,OAAO,CAAE,IAAI,AACf,CAAC,AACD,aAAa,cAAC,CAAC,AACb,UAAU,CAAE,GAAG,CACf,YAAY,CAAE,IAAI,AACpB,CAAC,AACD,KAAK,cAAC,CAAC,AACL,WAAW,CAAE,IAAI,AACnB,CAAC\"}"
 };
 
 const CocktailDetail = create_ssr_component(($$result, $$props, $$bindings, $$slots) => {
@@ -1091,14 +1091,14 @@ const CocktailDetail = create_ssr_component(($$result, $$props, $$bindings, $$sl
 	return `${validate_component(Header, "Header").$$render($$result, {}, {}, {})}
 ${cocktail
 	? `<h1>${escape(cocktail.strDrink)}</h1>
-  <div class="${"cocktail svelte-17rhe9"}"><div class="${"cocktail-img svelte-17rhe9"}"><img width="${"100%"}"${add_attribute("src", `${cocktail.strDrinkThumb}`, 0)}${add_attribute("alt", cocktail.strDrink, 0)}></div>
+  <div class="${"cocktail svelte-17rhe9"}"><div class="${"cocktail-img svelte-17rhe9"}"><img width="${"100%"}"${add_attribute("src", `${cocktail.strDrinkThumb}`, 0)}${add_attribute("alt", cocktail.strDrink, 0)}>
+      ${$favorites.some(fav => fav.idDrink === cocktail.idDrink)
+		? `<button>Remove from favorites
+        </button>`
+		: `<button>Add to favorites
+        </button>`}</div>
     <div><span class="${"bold svelte-17rhe9"}">Ingredients</span>
       <ul>${each(ingredients, ingredient => `<li>${escape(ingredient)}</li>`)}</ul></div></div>
-  ${$favorites.some(fav => fav.idDrink === cocktail.idDrink)
-		? `<button>Retirer des favoris
-    </button>`
-		: `<button>Ajouter aux favoris
-    </button>`}
   <h4>Instructions</h4>
   <span>${escape(cocktail.strInstructions)}</span>`
 	: `<p>...waiting</p>`}`;
@@ -1116,6 +1116,7 @@ const Favorites = create_ssr_component(($$result, $$props, $$bindings, $$slots) 
 	let $favorites = get_store_value(favorites);
 
 	return `${validate_component(Header, "Header").$$render($$result, {}, {}, {})}
+<h2>My favorites</h2>
 ${$favorites.length > 0
 	? `${validate_component(CocktailsGrid, "CocktailsGrid").$$render($$result, { cocktails: $favorites }, {}, {})}`
 	: ``}`;

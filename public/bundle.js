@@ -2846,13 +2846,13 @@ var app = (function () {
     	let img_src_value;
     	let img_alt_value;
     	let t2;
+    	let show_if;
+    	let t3;
     	let div1;
     	let span0;
-    	let t3;
     	let t4;
-    	let ul;
     	let t5;
-    	let show_if;
+    	let ul;
     	let t6;
     	let h4;
     	let t7;
@@ -2860,12 +2860,6 @@ var app = (function () {
     	let span1;
     	let t9_value = /*cocktail*/ ctx[0].strInstructions + "";
     	let t9;
-    	let each_value = /*ingredients*/ ctx[1];
-    	let each_blocks = [];
-
-    	for (let i = 0; i < each_value.length; i += 1) {
-    		each_blocks[i] = create_each_block$2(get_each_context$2(ctx, each_value, i));
-    	}
 
     	function select_block_type_1(ctx, dirty) {
     		if (show_if == null || dirty & /*$favorites, cocktail*/ 5) show_if = !!/*$favorites*/ ctx[2].some(/*func*/ ctx[4]);
@@ -2875,6 +2869,12 @@ var app = (function () {
 
     	let current_block_type = select_block_type_1(ctx, -1);
     	let if_block = current_block_type(ctx);
+    	let each_value = /*ingredients*/ ctx[1];
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block$2(get_each_context$2(ctx, each_value, i));
+    	}
 
     	return {
     		c() {
@@ -2885,18 +2885,18 @@ var app = (function () {
     			div0 = element("div");
     			img = element("img");
     			t2 = space();
+    			if_block.c();
+    			t3 = space();
     			div1 = element("div");
     			span0 = element("span");
-    			t3 = text("Ingredients");
-    			t4 = space();
+    			t4 = text("Ingredients");
+    			t5 = space();
     			ul = element("ul");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			t5 = space();
-    			if_block.c();
     			t6 = space();
     			h4 = element("h4");
     			t7 = text("Instructions");
@@ -2916,15 +2916,17 @@ var app = (function () {
     			div0 = claim_element(div2_nodes, "DIV", { class: true });
     			var div0_nodes = children(div0);
     			img = claim_element(div0_nodes, "IMG", { width: true, src: true, alt: true });
+    			t2 = claim_space(div0_nodes);
+    			if_block.l(div0_nodes);
     			div0_nodes.forEach(detach);
-    			t2 = claim_space(div2_nodes);
+    			t3 = claim_space(div2_nodes);
     			div1 = claim_element(div2_nodes, "DIV", {});
     			var div1_nodes = children(div1);
     			span0 = claim_element(div1_nodes, "SPAN", { class: true });
     			var span0_nodes = children(span0);
-    			t3 = claim_text(span0_nodes, "Ingredients");
+    			t4 = claim_text(span0_nodes, "Ingredients");
     			span0_nodes.forEach(detach);
-    			t4 = claim_space(div1_nodes);
+    			t5 = claim_space(div1_nodes);
     			ul = claim_element(div1_nodes, "UL", {});
     			var ul_nodes = children(ul);
 
@@ -2935,8 +2937,6 @@ var app = (function () {
     			ul_nodes.forEach(detach);
     			div1_nodes.forEach(detach);
     			div2_nodes.forEach(detach);
-    			t5 = claim_space(nodes);
-    			if_block.l(nodes);
     			t6 = claim_space(nodes);
     			h4 = claim_element(nodes, "H4", {});
     			var h4_nodes = children(h4);
@@ -2964,19 +2964,19 @@ var app = (function () {
     			insert(target, div2, anchor);
     			append(div2, div0);
     			append(div0, img);
-    			append(div2, t2);
+    			append(div0, t2);
+    			if_block.m(div0, null);
+    			append(div2, t3);
     			append(div2, div1);
     			append(div1, span0);
-    			append(span0, t3);
-    			append(div1, t4);
+    			append(span0, t4);
+    			append(div1, t5);
     			append(div1, ul);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(ul, null);
     			}
 
-    			insert(target, t5, anchor);
-    			if_block.m(target, anchor);
     			insert(target, t6, anchor);
     			insert(target, h4, anchor);
     			append(h4, t7);
@@ -2993,6 +2993,18 @@ var app = (function () {
 
     			if (dirty & /*cocktail*/ 1 && img_alt_value !== (img_alt_value = /*cocktail*/ ctx[0].strDrink)) {
     				attr(img, "alt", img_alt_value);
+    			}
+
+    			if (current_block_type === (current_block_type = select_block_type_1(ctx, dirty)) && if_block) {
+    				if_block.p(ctx, dirty);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(div0, null);
+    				}
     			}
 
     			if (dirty & /*ingredients*/ 2) {
@@ -3018,27 +3030,14 @@ var app = (function () {
     				each_blocks.length = each_value.length;
     			}
 
-    			if (current_block_type === (current_block_type = select_block_type_1(ctx, dirty)) && if_block) {
-    				if_block.p(ctx, dirty);
-    			} else {
-    				if_block.d(1);
-    				if_block = current_block_type(ctx);
-
-    				if (if_block) {
-    					if_block.c();
-    					if_block.m(t6.parentNode, t6);
-    				}
-    			}
-
     			if (dirty & /*cocktail*/ 1 && t9_value !== (t9_value = /*cocktail*/ ctx[0].strInstructions + "")) set_data(t9, t9_value);
     		},
     		d(detaching) {
     			if (detaching) detach(h1);
     			if (detaching) detach(t1);
     			if (detaching) detach(div2);
+    			if_block.d();
     			destroy_each(each_blocks, detaching);
-    			if (detaching) detach(t5);
-    			if_block.d(detaching);
     			if (detaching) detach(t6);
     			if (detaching) detach(h4);
     			if (detaching) detach(t8);
@@ -3047,37 +3046,7 @@ var app = (function () {
     	};
     }
 
-    // (58:8) {#each ingredients as ingredient}
-    function create_each_block$2(ctx) {
-    	let li;
-    	let t_value = /*ingredient*/ ctx[6] + "";
-    	let t;
-
-    	return {
-    		c() {
-    			li = element("li");
-    			t = text(t_value);
-    		},
-    		l(nodes) {
-    			li = claim_element(nodes, "LI", {});
-    			var li_nodes = children(li);
-    			t = claim_text(li_nodes, t_value);
-    			li_nodes.forEach(detach);
-    		},
-    		m(target, anchor) {
-    			insert(target, li, anchor);
-    			append(li, t);
-    		},
-    		p(ctx, dirty) {
-    			if (dirty & /*ingredients*/ 2 && t_value !== (t_value = /*ingredient*/ ctx[6] + "")) set_data(t, t_value);
-    		},
-    		d(detaching) {
-    			if (detaching) detach(li);
-    		}
-    	};
-    }
-
-    // (68:2) {:else}
+    // (58:6) {:else}
     function create_else_block$3(ctx) {
     	let button;
     	let t;
@@ -3087,12 +3056,12 @@ var app = (function () {
     	return {
     		c() {
     			button = element("button");
-    			t = text("Ajouter aux favoris");
+    			t = text("Add to favorites");
     		},
     		l(nodes) {
     			button = claim_element(nodes, "BUTTON", {});
     			var button_nodes = children(button);
-    			t = claim_text(button_nodes, "Ajouter aux favoris");
+    			t = claim_text(button_nodes, "Add to favorites");
     			button_nodes.forEach(detach);
     		},
     		m(target, anchor) {
@@ -3118,7 +3087,7 @@ var app = (function () {
     	};
     }
 
-    // (64:2) {#if $favorites.some((fav) => fav.idDrink === cocktail.idDrink)}
+    // (54:6) {#if $favorites.some((fav) => fav.idDrink === cocktail.idDrink)}
     function create_if_block_1$2(ctx) {
     	let button;
     	let t;
@@ -3128,12 +3097,12 @@ var app = (function () {
     	return {
     		c() {
     			button = element("button");
-    			t = text("Retirer des favoris");
+    			t = text("Remove from favorites");
     		},
     		l(nodes) {
     			button = claim_element(nodes, "BUTTON", {});
     			var button_nodes = children(button);
-    			t = claim_text(button_nodes, "Retirer des favoris");
+    			t = claim_text(button_nodes, "Remove from favorites");
     			button_nodes.forEach(detach);
     		},
     		m(target, anchor) {
@@ -3155,6 +3124,36 @@ var app = (function () {
     			if (detaching) detach(button);
     			mounted = false;
     			dispose();
+    		}
+    	};
+    }
+
+    // (67:8) {#each ingredients as ingredient}
+    function create_each_block$2(ctx) {
+    	let li;
+    	let t_value = /*ingredient*/ ctx[6] + "";
+    	let t;
+
+    	return {
+    		c() {
+    			li = element("li");
+    			t = text(t_value);
+    		},
+    		l(nodes) {
+    			li = claim_element(nodes, "LI", {});
+    			var li_nodes = children(li);
+    			t = claim_text(li_nodes, t_value);
+    			li_nodes.forEach(detach);
+    		},
+    		m(target, anchor) {
+    			insert(target, li, anchor);
+    			append(li, t);
+    		},
+    		p(ctx, dirty) {
+    			if (dirty & /*ingredients*/ 2 && t_value !== (t_value = /*ingredient*/ ctx[6] + "")) set_data(t, t_value);
+    		},
+    		d(detaching) {
+    			if (detaching) detach(li);
     		}
     	};
     }
@@ -3349,7 +3348,10 @@ var app = (function () {
 
     function create_fragment$9(ctx) {
     	let header;
-    	let t;
+    	let t0;
+    	let h2;
+    	let t1;
+    	let t2;
     	let if_block_anchor;
     	let current;
     	header = new Header({});
@@ -3358,19 +3360,30 @@ var app = (function () {
     	return {
     		c() {
     			create_component(header.$$.fragment);
-    			t = space();
+    			t0 = space();
+    			h2 = element("h2");
+    			t1 = text("My favorites");
+    			t2 = space();
     			if (if_block) if_block.c();
     			if_block_anchor = empty();
     		},
     		l(nodes) {
     			claim_component(header.$$.fragment, nodes);
-    			t = claim_space(nodes);
+    			t0 = claim_space(nodes);
+    			h2 = claim_element(nodes, "H2", {});
+    			var h2_nodes = children(h2);
+    			t1 = claim_text(h2_nodes, "My favorites");
+    			h2_nodes.forEach(detach);
+    			t2 = claim_space(nodes);
     			if (if_block) if_block.l(nodes);
     			if_block_anchor = empty();
     		},
     		m(target, anchor) {
     			mount_component(header, target, anchor);
-    			insert(target, t, anchor);
+    			insert(target, t0, anchor);
+    			insert(target, h2, anchor);
+    			append(h2, t1);
+    			insert(target, t2, anchor);
     			if (if_block) if_block.m(target, anchor);
     			insert(target, if_block_anchor, anchor);
     			current = true;
@@ -3412,7 +3425,9 @@ var app = (function () {
     		},
     		d(detaching) {
     			destroy_component(header, detaching);
-    			if (detaching) detach(t);
+    			if (detaching) detach(t0);
+    			if (detaching) detach(h2);
+    			if (detaching) detach(t2);
     			if (if_block) if_block.d(detaching);
     			if (detaching) detach(if_block_anchor);
     		}
