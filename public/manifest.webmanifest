@@ -16,7 +16,7 @@
         "purpose": "any"
       }
     ],
-    "start_url": "/?source=pwa",
+    "start_url": "cocktails",
     "background_color": "#3367D6",
     "display": "minimal-ui",
     "scope": "/",
