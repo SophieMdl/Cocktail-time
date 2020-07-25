@@ -14,7 +14,7 @@
     <Route path="cocktails/:id" let:params>
       <CocktailDetail id={params.id} />
     </Route>
-    <Route path="index" component={Home} />
+    <Route path="index" component={CocktailsList} />
     <Route path="favorites" component={Favorites} />
   </Router>
 </div>

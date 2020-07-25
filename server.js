@@ -12,9 +12,11 @@ server.get("*", function (req, res) {
     <!DOCTYPE html>
     <link rel='stylesheet' href='/global.css'>
     <link rel='stylesheet' href='/bundle.css'>
+    <link rel="manifest" href="/manifest.webmanifest">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <div id="app">${html}</div>
     <script src="/bundle.js"></script>
+    <script src="/script.js"></script>
   `);
 
   res.end();
