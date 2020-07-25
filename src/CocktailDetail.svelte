@@ -35,6 +35,7 @@
   }
   .cocktail-img {
     flex-basis: 40%;
+    max-width: 200px;
     margin-right: 12px;
   }
   .bold {
@@ -49,7 +50,7 @@
     <div class="cocktail-img">
       <img
         width="100%"
-        src={`${cocktail.strDrinkThumb}`}
+        src={`${cocktail.strDrinkThumb}/preview`}
         alt={cocktail.strDrink} />
       {#if $favorites.some((fav) => fav.idDrink === cocktail.idDrink)}
         <button on:click={favorites.remove(cocktail.idDrink)}>
