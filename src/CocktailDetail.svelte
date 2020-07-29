@@ -8,7 +8,7 @@
   let cocktail;
   let ingredients = [];
 
-  const fetchCocktails = async () => {
+  const fetchCocktail = async () => {
     const res = await fetch(
       `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
     );
@@ -16,7 +16,7 @@
   };
 
   onMount(async () => {
-    cocktail = await fetchCocktails();
+    cocktail = $favorites.find(fav => fav.idDrink === id) || await fetchCocktail();
     for (const [key, value] of Object.entries(cocktail)) {
       if (key.includes('strIngredient') && value) {
         ingredients = [...ingredients, value];
