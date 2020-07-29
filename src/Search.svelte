@@ -6,6 +6,8 @@
     ingredients,
   } from './stores.js';
   import { navigate, Link } from 'svelte-routing';
+import AddAlt32 from "carbon-icons-svelte/lib/AddAlt32";
+import SubtractAlt32 from "carbon-icons-svelte/lib/SubtractAlt32";
 
   let showFilter = false;
 
@@ -46,8 +48,14 @@
   const toggleShowFilter = () => (showFilter = !showFilter);
 </script>
 
+<style>
+  .showFilter {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+</style>
 <div>
-  <label for="search">Chercher par nom</label>
+  <label for="search">Search by name</label>
   <input
     bind:value={$searchText}
     placeholder="Search"
@@ -55,12 +63,16 @@
     preventDefault
     on:keydown={(e) => e.key === 'Enter' && search(e)} />
 </div>
-<div on:click={() => toggleShowFilter()} href="#">
+  --- OR ---
+  <div on:click={() => toggleShowFilter()} href="#" class="showFilter">
   {#if showFilter}
-    Hide ingredient filter
-  {:else}Show ingredient filters{/if}
-</div>
-OR
+    <SubtractAlt32 class="icon" aria-label="Hide" />
+Hide ingredient filter
+  {:else}
+    <AddAlt32 class="icon" aria-label="Show" />
+Show ingredient filter{/if}
+  </div>
+
 {#if showFilter}
   <div>
     <label for="choix_bieres">Filter by ingredient :</label>

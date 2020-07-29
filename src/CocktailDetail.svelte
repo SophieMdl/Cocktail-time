@@ -1,8 +1,9 @@
 <script>
   import { Link } from 'svelte-routing';
-  import { onMount } from 'svelte';
+  import { onMount, beforeUpdate } from 'svelte';
   import Header from './Header.svelte';
   import { cocktails, favorites } from './stores.js';
+  import StarFilled32 from "carbon-icons-svelte/lib/StarFilled32";
 
   export let id;
   let cocktail;
@@ -14,9 +15,15 @@
     );
     return await res.json().then((res) => res.drinks[0]);
   };
+  
+  let isFavorite = $favorites.some(fav => fav.idDrink === id)
+
+beforeUpdate(() => {
+	isFavorite = $favorites.some(fav => fav.idDrink === id)
+});
 
   onMount(async () => {
-    cocktail = $favorites.find(fav => fav.idDrink === id) || await fetchCocktail();
+    cocktail = isFavorite ? $favorites.find(fav => fav.idDrink === id) : await fetchCocktail();
     for (const [key, value] of Object.entries(cocktail)) {
       if (key.includes('strIngredient') && value) {
         ingredients = [...ingredients, value];
@@ -37,27 +44,45 @@
     flex-basis: 40%;
     max-width: 200px;
     margin-right: 12px;
+    position: relative;
   }
   .bold {
     font-weight: bold;
+  }
+
+  .button {
+    border: none;
+    background: #e94444;
+    color: white;
+    width: 100%;
+    padding: 10px 0px;
+  }
+  .icon {
+    color: #e94444;
+    position: absolute;
+    left: 5px;
+    top: 5px;
   }
 </style>
 
 <Header />
 {#if cocktail}
-  <h1>{cocktail.strDrink}</h1>
+  <h3>{cocktail.strDrink}</h3>
   <div class="cocktail">
     <div class="cocktail-img">
+      {#if isFavorite}
+        <StarFilled32 class="icon favorite"/>
+      {/if}
       <img
         width="100%"
         src={`${cocktail.strDrinkThumb}/preview`}
         alt={cocktail.strDrink} />
-      {#if $favorites.some((fav) => fav.idDrink === cocktail.idDrink)}
-        <button on:click={favorites.remove(cocktail.idDrink)}>
-          Remove from favorites
+      {#if isFavorite}
+        <button class="button" on:click={favorites.remove(cocktail.idDrink)}>
+          Remove favorite
         </button>
       {:else}
-        <button on:click={favorites.add(cocktail)}>
+        <button class="button" on:click={favorites.add(cocktail)}>
           Add to favorites
         </button>
       {/if}

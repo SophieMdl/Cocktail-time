@@ -10,6 +10,7 @@ server.get("*", function (req, res) {
   const { html } = app.render({ url: req.url });
   res.write(`
     <!DOCTYPE html>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;600&&display=swap" rel="stylesheet">
     <link rel='stylesheet' href='/global.css'>
     <link rel='stylesheet' href='/bundle.css'>
     <link rel="manifest" href="/manifest.webmanifest">

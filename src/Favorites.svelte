@@ -5,7 +5,7 @@
 </script>
 
 <Header />
-<h2>My favorites</h2>
+<h3>My favorites</h3>
 {#if $favorites.length > 0}
   <CocktailsGrid cocktails={$favorites} />
 {/if}

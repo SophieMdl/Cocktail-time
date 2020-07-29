@@ -10,8 +10,7 @@ body {
   padding: 10px;
   margin: 0;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: "Dosis", sans-serif;
   font-size: 16px;
 }
 
@@ -79,3 +78,32 @@ button:not(:disabled):active {
 button:focus {
   border-color: #666;
 }
+
+h1,
+h2,
+h3 {
+  font-weight: 609;
+  color: #e94444;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+}
+.icon.favorite {
+  fill: yellow;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+a, a:visited {
+  color: black;
+}
+
+a:hover,
+a:focus {
+  color: #e94444;
+}
+
+

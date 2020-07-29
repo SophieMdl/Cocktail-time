@@ -7,6 +7,7 @@
 
 <style>
   .cocktails {
+    margin-top: 10px;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
